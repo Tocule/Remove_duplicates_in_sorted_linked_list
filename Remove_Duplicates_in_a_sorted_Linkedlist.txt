@@ -1,0 +1,48 @@
+void removeDuplicates(struct Node* head)
+{
+    int duplicates[200];
+    int n=0;
+    int flag;
+    struct Node *temp;
+    struct Node *prev;
+    temp=head;
+    prev=head;
+    temp=temp->next;
+    while(temp!=NULL)
+    {
+        
+        if(n==0)
+        {
+            duplicates[n]=prev->data;
+            n++;
+        }
+        if(n>=1)
+        {
+            for(int i=0;i<n;i++)
+            {
+                if(temp->data==duplicates[i])
+                {
+                    flag=1;
+                    break;
+                }
+                else
+                {
+                    flag=0;
+                }
+            }
+            if(flag==1)
+            {
+                prev->next=temp->next;
+                free(temp);
+                temp=prev;
+            }
+            else
+            {
+                duplicates[n]=temp->data;
+                n++;
+                prev=temp;
+            }
+        }
+        temp=temp->next;
+    }
+    
